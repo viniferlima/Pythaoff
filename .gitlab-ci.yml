@@ -1,14 +1,11 @@
-image: rvancea/maven-chrome-jdk8:latest
+image: gradle:6.9.1-jdk11
 
 build:
   stage: build
-  script:
-    - mvn compile
+  script: gradle --build-cache assemble
 
 test:
   stage: test
-  script:
-    - mvn clean test
+  script: gradle check
   only:
     - merge_requests
-  when: manual
