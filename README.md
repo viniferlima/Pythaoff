@@ -61,19 +61,46 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
 ## Backlog do Projeto:
 
 <a name="sprint01"></a>
-### Sprint :one:
+### Sprint :one: : MVP(Relatório parcial, CI parcial, DW parcial)
+* Modelagem e criação da DW para a primeira entrega;
+* Utilização do projeto do 3º;
+* Tratamento dos dados coletados;
+* Criar interação da aplicação com o banco para salvar logs de login;
+* Criação do front-end com o primeiro dashboard;
+* Configuração inicial de CI.
 
 <a name="sprint02"></a>
-### Sprint :two:
+### Sprint :two: : MVP(Escalabilidade e processamento de dados, relatório parcial)
+* Modelagem DW incremental;
+* Melhorar desempenho para recebimento de dados e escalabilidade do DW;
+* Criar os dashboards;
+  * Engajamento: quais alunos/colaboradores estão fazendo o curso no qual está matriculado;
+  * Desempenho: qual o aproveitamento - nota atingida - no curso no qual está matriculado;
+* Teste de desempenho;
+* Configuração de CI.
 
 <a name="sprint03"></a>
-### Sprint :three:
+### Sprint :three: : MVP(Permissões, relatórios parciais, chat, desempenho)
+* Criar login e níveis de acesso;
+* Criação dos dashboards:
+  * Participação x taxas de conclusão x desempenho dos alunos/colaboradores;
+  * Avaliação de reação: qualificação do conteúdo apresentado, experiência do aluno/colaborador durante o curso;
+* Captura dos logs do chat;
+* Configuração de CI.
+
 
 <a name="sprint04"></a>
-### Sprint :four:
+### Sprint :four: : (Relatórios, desempenho)
+* Criação do dashboard:
+  * Registro do tempo de participação no curso: tempo online executando as atividades;
+* Teste de desempenho.
 
 <a name="tecnologia"></a>
 ## Tecnologias Utilizadas:
+<div align="center">
+      ![Tecnologias](/Documentos/Tecnologias.png)
+</div>
+
 
 <a name="equipe"></a>
 # INTEGRANTES
