@@ -52,11 +52,21 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
 |--------- |--------- |--------- |--------- |
 |<p>:black_square_button:<a href="#sprint01">Loading...</a></p>|<p>:black_square_button:<a href="#sprint02">Loading...</a></p>|<p>:black_square_button:<a href="#sprint03">Loading...</a></p>|<p>:black_square_button:<a href="#sprint04">Loading...</a></p>|
 
+<a name="bd"></a>
+# Modelo do Banco de Dados
+## M.E.R (Modelo Entidade Relacionamento):
+<div align="center">
+      ![Tecnologias](/Documentos/ModelagemBD.png)
+</div>
+
+## Modelagem do Data Warehouse:
+<div align="center">
+      ![Tecnologias](/Documentos/ModelagemDW.png)
+</div>
 
 
 <a name="estrutura"></a>
 # Estrutura do Projeto
-
 
 ## Backlog do Projeto:
 
