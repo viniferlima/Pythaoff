@@ -5,8 +5,8 @@
 <div align="center">
       <h2>Menu</h2>
       <p>
-            :small_blue_diamond:<a href="#quem_somos">Quem somos?</a>
             :small_blue_diamond:<a href="#introducao">Introdução</a>
+            :small_blue_diamond:<a href="#bd">Modelo do Banco de Dados</a>
             :small_blue_diamond:<a href="#estrutura">Estrutura do projeto</a>
             :small_blue_diamond:<a href="#tecnologia">Tecnologias</a>
             :small_blue_diamond:<a href="#equipe">Equipe</a>
@@ -18,20 +18,30 @@
 
 GitLab para desenvolvimento do Projeto Integrador do 5º Semestre - Banco de dados FATEC SJC
 
-<a name="quem_somos"></a>
-## Quem somos :question:
+
+<a name="introducao"></a>
+# 1 - Introdução
+## 1.2 - Quem somos :question:
 Olá! Muito prazer! 
 Nós somos o grupo PythaOff, um time de alunos do 5° semestre do curso de Banco de Dados da FATEC de São José dos Campos. Esse grupo tem como objetivo desenvolver um projeto (PI) para solucionar um problema proposto por um cliente parceiro da instituição.
 
-<a name="introducao"></a>
-## O problema :exclamation:
+## 1.3 - O problema :exclamation:
 Desenvolver uma solução de dados voltada ao ensino a distância para a gestão e oferta do conhecimento, sendo apto a prover suporte às mais 
 variadas arquiteturas de aprendizagem, alinhado com os objetivos estratégicos a serem alcançados pelas organizações que atendermos 
 como clientes. Precisamos ajustar o banco de dados, pensando em um grande processamento de dados com ganho de escalabilidade e 
 integração contínua entre os ambientes. Adicionar na solução atual um banco de dados não relacional para armazenar os chats e os logs. 
 Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e um modelo OLAP para visualização e análise de dados.
 
-## Requisitos Funcionais
+## 1.4 - Cronograma :calendar:
+* 16/08/2021 até 22/08/2021 - Kick Off do Projeto
+* 30/08/2021 até 19/09/2021 - Sprint 1
+* 20/09/2021 até 10/10/2021 - Sprint 2
+* 18/10/2021 até 07/10/2021 - Sprint 3
+* 08/11/2021 até 28/11/2021 - Sprint 4
+* 29/11/2021 até xx/12/2021 - Sprint Apresentação Final
+* xx/xx/2021 até xx/xx/2021 - Sprint Feira de Soluções
+
+## 1.5 - Requisitos Funcionais
 
 | Requisitos não funcionais             |  Código |                                                                                                                                    
 | ----------------------------------|---------|
@@ -39,7 +49,7 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
 |Rotina de Chat                |RF02     |
 |CI/CD        |RF03     | 
 |Dashboards        |RF04     | 
-## Requisitos Não Funcionais
+## 1.6 - Requisitos Não Funcionais
 
 | Requisitos não funcionais             |  Código |                                                                                                                                    
 | ----------------------------------|---------|
@@ -47,28 +57,38 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
 |Facilidade de uso                |RF02     |
 |Escalabilidade        |RF03     |
 
-### :camera: 1.2. Apresentação da Evolução do Projeto
+## 1.7 - Apresentação da Evolução do Projeto :camera:
 | Sprint 1  | Sprint 2 | Sprint 3 | Sprint 4 |
 |--------- |--------- |--------- |--------- |
 |<p>:black_square_button:<a href="#sprint01">Loading...</a></p>|<p>:black_square_button:<a href="#sprint02">Loading...</a></p>|<p>:black_square_button:<a href="#sprint03">Loading...</a></p>|<p>:black_square_button:<a href="#sprint04">Loading...</a></p>|
 
 <a name="bd"></a>
-# Modelo do Banco de Dados
-## M.E.R (Modelo Entidade Relacionamento):
+# 2 - Modelo do Banco de Dados
+## 2.1 - M.E.R (Modelo Entidade Relacionamento):
 <div align="center">
-      ![Tecnologias](/Documentos/ModelagemBD.png)
+      ![BD](/Documentos/ModelagemBD.png)
 </div>
 
-## Modelagem do Data Warehouse:
+## 2.2 - Modelagem do Data Warehouse:
 <div align="center">
-      ![Tecnologias](/Documentos/ModelagemDW.png)
+      ![DW](/Documentos/ModelagemDW.png)
 </div>
 
 
 <a name="estrutura"></a>
-# Estrutura do Projeto
+# 3. - Estrutura do Projeto
 
-## Backlog do Projeto:
+## 3.1 - Design da Aplicação:
+<div align="center">
+      ![DesignAplicacao](/Documentos/design-aplicacao.jpg)
+</div>
+
+## 3.2 - Diagrama da Sprint 1:
+<div align="center">
+      ![Sprint1](/Documentos/entrega-1.jpg)
+</div>
+
+## 3.3 - Backlog do Projeto:
 
 <a name="sprint01"></a>
 ### Sprint :one: : MVP(Relatório parcial, CI parcial, DW parcial)
@@ -106,14 +126,14 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
 * Teste de desempenho.
 
 <a name="tecnologia"></a>
-## Tecnologias Utilizadas:
+## 4 - Tecnologias Utilizadas:
 <div align="center">
       ![Tecnologias](/Documentos/Tecnologias.png)
 </div>
 
 
 <a name="equipe"></a>
-# INTEGRANTES
+# 5 - INTEGRANTES
 
  * GABRIEL DE QUEIROZ CORDEIRO **| Product Owner |**
  * SABRINA RAFAELA CALADO MARIANO **| Dev Team |**
@@ -121,5 +141,4 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
  * ARTHUR CARDOSO RINALDI DA SILVA **| Dev Team |**
  * PERILO CARVALHO DE OLIVEIRA JUNIOR **| Dev Team |**
  * VINICIUS FERNANDES DE LIMA **| Dev Team |**
- * IGOR AUGUSTO **| Dev Team |**
 
