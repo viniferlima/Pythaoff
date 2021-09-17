@@ -23,6 +23,9 @@ public class Permission {
     @Column(name = "type_permission")
     private String permission_type;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "permission")
+    private Set<Person> people;
+
     public Long getPermission_id() {
         return permission_id;
     }
@@ -47,6 +50,4 @@ public class Permission {
         this.people = people;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "permission")
-    private Set<Person> people;
 }
