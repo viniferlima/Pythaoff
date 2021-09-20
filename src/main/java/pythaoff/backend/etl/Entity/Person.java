@@ -2,6 +2,7 @@ package pythaoff.backend.etl.Entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,23 +14,28 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "person")
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_person")
-    private Long psn_id;
+    @Column(name = "person_id")
+    private Long id;
 
-    @Column(name = "name")
-    private String psn_name;
+    @Column(name = "person_name")
+    private String nome;
 
+    @JsonIgnore//@JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
     private Set<Access> accesses;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_permission")
+    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "permission_id")
     private Permission permission;
 
     public Permission getPermission() {
@@ -48,20 +54,21 @@ public class Person {
         this.accesses = accesses;
     }
 
-    public Long getPsn_id() {
-        return psn_id;
+    // @JsonProperty(value = "id")
+    public Long getId() {
+        return id;
     }
 
-    public void setPsn_id(Long psn_id) {
-        this.psn_id = psn_id;
+    public void setId(Long psn_id) {
+        this.id = psn_id;
     }
 
-    public String getPsn_name() {
-        return psn_name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setPsn_name(String psn_name) {
-        this.psn_name = psn_name;
+    public void setNome(String psn_name) {
+        this.nome = psn_name;
     }
 
 }

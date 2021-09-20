@@ -1,7 +1,9 @@
 package pythaoff.backend.etl.Entity;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,36 +14,48 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "access")
 public class Access {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_access")
-    private Long access_id;
+    @Column(name = "access_id")
+    private Long id;
 
-    @Column(name = "id_access")
-    private Date access_date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @Column(name = "access_date")
+    private Date date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_person")
+    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "person_id")
+    @JsonIgnoreProperties(value = "accesses", allowSetters = true)
     private Person person;
 
-    public Long getAccess_id() {
-        return access_id;
+    // @JsonProperty(value = "id")
+    public Long getId() {
+        return id;
     }
 
-    public void setAccess_id(Long access_id) {
-        this.access_id = access_id;
+    public void setId(Long access_id) {
+        this.id = access_id;
     }
 
-    public Date getAccess_date() {
-        return access_date;
+    public Date getDate() {
+        return date;
     }
 
-    public void setAccess_date(Date access_date) {
-        this.access_date = access_date;
+    public void setDateFromString(String dateString) {
+        this.date = Date.from(ZonedDateTime.parse(dateString).toInstant());
+    }
+
+    public void setDate(Date access_date) {
+        this.date = access_date;
     }
 
     public Person getPerson() {

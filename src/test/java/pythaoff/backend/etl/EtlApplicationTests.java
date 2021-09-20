@@ -3,7 +3,6 @@ package pythaoff.backend.etl;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Date;
-
 import javax.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,30 +51,30 @@ class EtlApplicationTests {
 	@Test
 	void InsertPersonTest() {
 		Person person = new Person();
-		person.setPsn_name("Gustavo");
+		person.setNome("Gustavo");
 		personRepo.save(person);
 
-		assertNotNull(personRepo.findById(person.getPsn_id()));
+		assertNotNull(personRepo.findById(person.getId()));
 	}
 
 	@Test
 	void InsertAccessTest() {
 		Access access = new Access();
 		Date date = new Date();
-		access.setAccess_date(date);
+		access.setDate(date);
 		accessRepo.save(access);
 
-		assertNotNull(personRepo.findById(access.getAccess_id()));
+		assertNotNull(personRepo.findById(access.getId()));
 	}
 
 	@Test
 	void InsertPermissionTest() {
 		Permission permission = new Permission();
-		permission.setPermission_type("Teste");
+		permission.setType("Teste");
 		;
 		permissionRepo.save(permission);
 
-		assertNotNull(personRepo.findById(permission.getPermission_id()));
+		assertNotNull(personRepo.findById(permission.getId()));
 	}
 
 	@Test
@@ -105,4 +104,5 @@ class EtlApplicationTests {
 
 		assertNotNull(FactAccessDateRepo.findById(factAccess.getId_fact()));
 	}
+
 }
