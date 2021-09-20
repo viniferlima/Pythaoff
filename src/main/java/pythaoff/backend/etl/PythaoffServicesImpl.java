@@ -45,7 +45,7 @@ public class PythaoffServicesImpl implements PythaoffServices {
     public Person NewPerson(String name, Permission perm) {
 
         Person person = new Person();
-        person.setPsn_name(name);
+        person.setNome(name);
         person.setPermission(perm);
         person.setAccesses(new HashSet<Access>());
         personRepo.save(person);
@@ -58,7 +58,7 @@ public class PythaoffServicesImpl implements PythaoffServices {
     public Access NewAccess(Date date, Person person) {
 
         Access access = new Access();
-        access.setAccess_date(date);
+        access.setDate(date);
         access.setPerson(person);
         accessRepo.save(access);
 
@@ -70,7 +70,7 @@ public class PythaoffServicesImpl implements PythaoffServices {
     public Permission NewPermission(String type_permission) {
 
         Permission permission = new Permission();
-        permission.setPermission_type(type_permission);
+        permission.setType(type_permission);
         permissionRepo.save(permission);
 
         return permission;

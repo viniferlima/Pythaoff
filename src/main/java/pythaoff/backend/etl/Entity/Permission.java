@@ -11,35 +11,39 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "permission")
 public class Permission {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_permission")
-    private Long permission_id;
+    @Column(name = "permission_id")
+    private Long id;
 
-    @Column(name = "type_permission")
-    private String permission_type;
+    @Column(name = "permission_type")
+    private String type;
 
+    @JsonIgnore//@JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "permission")
     private Set<Person> people;
 
-    public Long getPermission_id() {
-        return permission_id;
+    // @JsonProperty(value = "id")
+    public Long getId() {
+        return id;
     }
 
-    public void setPermission_id(Long permission_id) {
-        this.permission_id = permission_id;
+    public void setId(Long permission_id) {
+        this.id = permission_id;
     }
 
-    public String getPermission_type() {
-        return permission_type;
+    public String getType() {
+        return type;
     }
 
-    public void setPermission_type(String permission_type) {
-        this.permission_type = permission_type;
+    public void setType(String permission_type) {
+        this.type = permission_type;
     }
 
     public Set<Person> getPeople() {
