@@ -8,4 +8,5 @@ test:
   stage: test
   script: gradle check
   only:
+    - main
     - merge_requests
