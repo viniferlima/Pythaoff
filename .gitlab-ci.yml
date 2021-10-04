@@ -8,4 +8,5 @@ test:
   stage: test
   script: gradle check --scan
   only:
+    - Release
     - merge_requests
