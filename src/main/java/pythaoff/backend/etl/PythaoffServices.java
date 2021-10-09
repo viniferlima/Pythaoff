@@ -2,12 +2,12 @@ package pythaoff.backend.etl;
 
 import java.util.Date;
 
-import pythaoff.backend.etl.Entity.Access;
 import pythaoff.backend.etl.Entity.DimAccess;
 import pythaoff.backend.etl.Entity.DimPermission;
 import pythaoff.backend.etl.Entity.FactAccessDate;
-import pythaoff.backend.etl.Entity.Permission;
-import pythaoff.backend.etl.Entity.Person;
+import pythaoff.backend.etl.model.Access;
+import pythaoff.backend.etl.model.Permission;
+import pythaoff.backend.etl.model.Person;
 
 public interface PythaoffServices {
 

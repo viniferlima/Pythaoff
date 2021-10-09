@@ -1,4 +1,4 @@
-package pythaoff.backend.etl.Entity;
+package pythaoff.backend.etl.model;
 
 import java.util.Set;
 
