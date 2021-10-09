@@ -22,8 +22,19 @@ public class DimPermission {
     @Column(name = "type_permission")
     private String type_permission;
 
+    @Column(name = "person")
+    private Person person;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "dimPermission")
     private Set<FactAccessDate> factAccessDate;
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
     public Long getId_permission() {
         return id_permission;

@@ -1,5 +1,6 @@
 package pythaoff.backend.etl.Entity;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Column;
@@ -23,8 +24,19 @@ public class DimAccess {
     @Column(name = "time_access")
     private Date time_access;
 
+    @Column(name = "person")
+    private Person person;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "dimAccess")
     private Set<FactAccessDate> factAccessDate;
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
     public Long getId_access() {
         return id_access;
@@ -40,6 +52,10 @@ public class DimAccess {
 
     public void setTime_access(Date time_access) {
         this.time_access = time_access;
+    }
+
+    public void setTime_accessFromString(String dateString) {
+        this.time_access = Date.from(ZonedDateTime.parse(dateString).toInstant());
     }
 
     public Set<FactAccessDate> getFactAccessDate() {

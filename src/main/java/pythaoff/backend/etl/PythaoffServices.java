@@ -11,7 +11,7 @@ import pythaoff.backend.etl.Entity.Person;
 
 public interface PythaoffServices {
 
-    public Person NewPerson(String name, Permission perm);
+    public Person NewPerson(String name, String perm);
 
     public Access NewAccess(Date date, Person person);
 

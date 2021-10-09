@@ -42,15 +42,17 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
     @Override
     @Transactional
-    public Person NewPerson(String name, Permission perm) {
+    public Person NewPerson(String name, String perm) {
+        Person usuario = personRepo.findFirstByNome(name);
+        if (usuario == null) {
+            usuario = new Person();
+            usuario.setNome(name);
+            usuario.setPermission(NewPermission(perm));
+            usuario.setAccesses(new HashSet<Access>());
+            personRepo.save(usuario);
+        }
 
-        Person person = new Person();
-        person.setNome(name);
-        person.setPermission(perm);
-        person.setAccesses(new HashSet<Access>());
-        personRepo.save(person);
-
-        return person;
+        return usuario;
     }
 
     @Override
@@ -68,12 +70,14 @@ public class PythaoffServicesImpl implements PythaoffServices {
     @Override
     @Transactional
     public Permission NewPermission(String type_permission) {
+        Permission permissao = permissionRepo.findFirstByType(type_permission);
+        if (permissao == null) {
+            permissao = new Permission();
+            permissao.setType(type_permission);
+            permissionRepo.save(permissao);
+        }
 
-        Permission permission = new Permission();
-        permission.setType(type_permission);
-        permissionRepo.save(permission);
-
-        return permission;
+        return permissao;
     }
 
     @Override

@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import pythaoff.backend.etl.PythaoffServices;
 import pythaoff.backend.etl.Entity.Access;
+import pythaoff.backend.etl.Entity.DimAccess;
 import pythaoff.backend.etl.Entity.Permission;
 import pythaoff.backend.etl.Entity.Person;
 import pythaoff.backend.etl.Repository.AccessRepository;
+import pythaoff.backend.etl.Repository.DimAccessRepository;
 import pythaoff.backend.etl.Repository.PermissionRepository;
 import pythaoff.backend.etl.Repository.PersonRepository;
 
@@ -33,42 +36,56 @@ public class ExtratorController {
 
     @Autowired
     AccessRepository accessRepository;
-    
+
+    @Autowired
+    PythaoffServices servicesRepo;
+
+    @Autowired
+    DimAccessRepository dimAccessRepository;
+
     @Transactional
-    @GetMapping(value ="/acessos")
+    @GetMapping(value = "/acessos")
     public String getAcessos() {
-        String jsonString = "";        
-        ObjectMapper mapper = new ObjectMapper(); 
+        String jsonString = "";
+        ObjectMapper mapper = new ObjectMapper();
         try {
             jsonString = mapper.writeValueAsString(accessRepository.findAll());
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        } 
+        }
         return jsonString;
     }
 
     @Transactional
-    @PostMapping(value ="/loginRegister")
+    @PostMapping(value = "/loginRegister")
     public ResponseEntity<Object> loginRegister(@RequestBody final String formData) {
 
         JSONObject loginLogJson = new JSONObject(formData);
         Access acesso = new Access();
+        DimAccess dimAccess = new DimAccess();
 
-        if (loginLogJson.has("datahora")){
+        if (loginLogJson.has("datahora")) {
             acesso.setDateFromString(loginLogJson.getString("datahora"));
+            dimAccess.setTime_accessFromString(loginLogJson.getString("datahora"));
         }
-        if (loginLogJson.has("usuario") && loginLogJson.has("permissao")){
-            acesso.setPerson(registerUser(loginLogJson.getString("usuario"),loginLogJson.getString("permissao")));
+        if (loginLogJson.has("usuario") && loginLogJson.has("permissao")) {
+            // acesso.setPerson(registerUser(loginLogJson.getString("usuario"),loginLogJson.getString("permissao")));
+            acesso.setPerson(
+                    servicesRepo.NewPerson(loginLogJson.getString("usuario"), loginLogJson.getString("permissao")));
+
+            dimAccess.setPerson(
+                    servicesRepo.NewPerson(loginLogJson.getString("usuario"), loginLogJson.getString("permissao")));
         }
-        
+
         acesso = accessRepository.save(acesso);
+        dimAccess = dimAccessRepository.save(dimAccess);
 
         if (acesso == null) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);        
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    
+
     public Person registerUser(String username, String type) {
         Person usuario = personRepository.findFirstByNome(username);
         if (usuario == null) {
