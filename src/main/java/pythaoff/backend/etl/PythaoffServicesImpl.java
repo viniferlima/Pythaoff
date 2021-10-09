@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 import pythaoff.backend.etl.Entity.Access;
 import pythaoff.backend.etl.Entity.DimAccess;
 import pythaoff.backend.etl.Entity.DimPermission;
+import pythaoff.backend.etl.Entity.DimPerson;
 import pythaoff.backend.etl.Entity.FactAccessDate;
 import pythaoff.backend.etl.Entity.Permission;
 import pythaoff.backend.etl.Entity.Person;
 import pythaoff.backend.etl.Repository.AccessRepository;
 import pythaoff.backend.etl.Repository.DimAccessRepository;
 import pythaoff.backend.etl.Repository.DimPermissionRepository;
+import pythaoff.backend.etl.Repository.DimPersonRepository;
 import pythaoff.backend.etl.Repository.FactAccessDateRepository;
 import pythaoff.backend.etl.Repository.PermissionRepository;
 import pythaoff.backend.etl.Repository.PersonRepository;
@@ -40,6 +42,9 @@ public class PythaoffServicesImpl implements PythaoffServices {
     @Autowired
     private DimPermissionRepository dimPermissionRepo;
 
+    @Autowired
+    private DimPersonRepository dimPersonRepository;
+
     @Override
     @Transactional
     public Person NewPerson(String name, String perm) {
@@ -51,6 +56,8 @@ public class PythaoffServicesImpl implements PythaoffServices {
             usuario.setAccesses(new HashSet<Access>());
             personRepo.save(usuario);
         }
+        String email = "";
+        NewDimPerson(name, email);
 
         return usuario;
     }
@@ -82,6 +89,19 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
     @Override
     @Transactional
+    public DimPerson NewDimPerson(String name, String email) {
+        DimPerson usuario = dimPersonRepository.findFirstByName(name);
+        if (usuario == null) {
+            usuario = new DimPerson();
+            usuario.setName(name);
+            usuario.setEmail(email);
+            dimPersonRepository.save(usuario);
+        }
+        return usuario;
+    }
+
+    @Override
+    @Transactional
     public DimAccess NewDimAccess(Date time_access) {
 
         DimAccess dimAccess = new DimAccess();
@@ -108,11 +128,11 @@ public class PythaoffServicesImpl implements PythaoffServices {
             Integer qty_access) {
 
         FactAccessDate factAccessDate = new FactAccessDate();
-        factAccessDate.setTime_access(time_access);
-        factAccessDate.setDimAccess(dimAccess);
-        factAccessDate.setDimPermission(dimPermission);
-        factAccessDate.setQty_access(qty_access);
-        FactAccessDateRepo.save(factAccessDate);
+        // factAccessDate.setTime_access(time_access);
+        // factAccessDate.setDimAccess(dimAccess);
+        // factAccessDate.setDimPermission(dimPermission);
+        // factAccessDate.setQty_access(qty_access);
+        // FactAccessDateRepo.save(factAccessDate);
 
         return factAccessDate;
     }

@@ -1,6 +1,5 @@
 package pythaoff.backend.etl.Entity;
 
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,16 +19,26 @@ public class FactAccessDate {
     @Column(name = "id_fact")
     private Long id_fact;
 
-    @Column(name = "time_access")
-    private Date time_access;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "grade")
+    private String grade;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_access")
+    @JoinColumn(name = "iddimGrade")
+    private DimGrade dimGrade;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "iddimAccess")
     private DimAccess dimAccess;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_permission")
-    private DimPermission dimPermission;
+    @JoinColumn(name = "iddimPerson")
+    private DimPerson dimPerson;
 
     @Column(name = "qty_access")
     private Integer qty_access;
@@ -42,12 +51,36 @@ public class FactAccessDate {
         this.id_fact = id_fact;
     }
 
-    public Date getTime_access() {
-        return time_access;
+    public String getName() {
+        return name;
     }
 
-    public void setTime_access(Date time_access) {
-        this.time_access = time_access;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public DimGrade getDimGrade() {
+        return dimGrade;
+    }
+
+    public void setDimGrade(DimGrade dimGrade) {
+        this.dimGrade = dimGrade;
     }
 
     public DimAccess getDimAccess() {
@@ -58,12 +91,12 @@ public class FactAccessDate {
         this.dimAccess = dimAccess;
     }
 
-    public DimPermission getDimPermission() {
-        return dimPermission;
+    public DimPerson getDimPerson() {
+        return dimPerson;
     }
 
-    public void setDimPermission(DimPermission dimPermission) {
-        this.dimPermission = dimPermission;
+    public void setDimPerson(DimPerson dimPerson) {
+        this.dimPerson = dimPerson;
     }
 
     public Integer getQty_access() {

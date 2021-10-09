@@ -26,10 +26,13 @@ public class Person {
     @Column(name = "person_id")
     private Long id;
 
-    @Column(name = "person_name")
+    @Column(name = "name")
     private String nome;
 
-    @JsonIgnore//@JsonManagedReference
+    @Column(name = "email")
+    private String email;
+
+    @JsonIgnore // @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
     private Set<Access> accesses;
 
@@ -37,6 +40,14 @@ public class Person {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "permission_id")
     private Permission permission;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Permission getPermission() {
         return permission;
