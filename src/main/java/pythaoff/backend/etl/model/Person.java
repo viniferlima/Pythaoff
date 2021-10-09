@@ -1,4 +1,4 @@
-package pythaoff.backend.etl.Entity;
+package pythaoff.backend.etl.model;
 
 import java.util.Set;
 
@@ -35,6 +35,10 @@ public class Person {
     @JsonIgnore // @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
     private Set<Access> accesses;
+
+    @JsonIgnore // @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
+    private Set<Registration> registrations;
 
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

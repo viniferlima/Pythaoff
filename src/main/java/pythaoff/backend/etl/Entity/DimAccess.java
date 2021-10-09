@@ -3,6 +3,7 @@ package pythaoff.backend.etl.Entity;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import pythaoff.backend.etl.model.Person;
+
 @Entity
 @Table(name = "dimAccess")
 public class DimAccess {
@@ -20,9 +23,6 @@ public class DimAccess {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_access")
     private Long id_access;
-
-    @Column(name = "time_access")
-    private Date time_access;
 
     @Column(name = "person")
     private Person person;
@@ -44,18 +44,6 @@ public class DimAccess {
 
     public void setId_access(Long id_access) {
         this.id_access = id_access;
-    }
-
-    public Date getTime_access() {
-        return time_access;
-    }
-
-    public void setTime_access(Date time_access) {
-        this.time_access = time_access;
-    }
-
-    public void setTime_accessFromString(String dateString) {
-        this.time_access = Date.from(ZonedDateTime.parse(dateString).toInstant());
     }
 
     public Set<FactAccessDate> getFactAccessDate() {

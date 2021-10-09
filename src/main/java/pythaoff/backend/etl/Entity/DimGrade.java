@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import pythaoff.backend.etl.model.Course;
+import pythaoff.backend.etl.model.Person;
+
 public class DimGrade {
 
     @Id
@@ -20,7 +23,7 @@ public class DimGrade {
     private Person person;
 
     @Column(name = "course")
-    private String course;
+    private Course course;
 
     @Column(name = "average_grade")
     private String average_grade;
@@ -52,11 +55,11 @@ public class DimGrade {
         this.person = person;
     }
 
-    public String getCourse() {
+    public Course getCourse() {
         return course;
     }
 
-    public void setCourse(String course) {
+    public void setCourse(Course course) {
         this.course = course;
     }
 

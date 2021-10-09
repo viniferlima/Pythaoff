@@ -8,18 +8,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
-import pythaoff.backend.etl.Entity.Access;
+
 import pythaoff.backend.etl.Entity.DimAccess;
 import pythaoff.backend.etl.Entity.DimPermission;
 import pythaoff.backend.etl.Entity.FactAccessDate;
-import pythaoff.backend.etl.Entity.Permission;
-import pythaoff.backend.etl.Entity.Person;
 import pythaoff.backend.etl.Repository.AccessRepository;
 import pythaoff.backend.etl.Repository.DimAccessRepository;
 import pythaoff.backend.etl.Repository.DimPermissionRepository;
 import pythaoff.backend.etl.Repository.FactAccessDateRepository;
 import pythaoff.backend.etl.Repository.PermissionRepository;
 import pythaoff.backend.etl.Repository.PersonRepository;
+import pythaoff.backend.etl.model.Access;
+import pythaoff.backend.etl.model.Permission;
+import pythaoff.backend.etl.model.Person;
 
 @SpringBootTest
 @Transactional
@@ -88,9 +89,12 @@ class EtlApplicationTests {
 
 	@Test
 	void InsertFactAccessDateTest() {
+
+		Person person = new Person();
+		person.setNome("Gustavo");
+
 		DimAccess dimAcces = new DimAccess();
-		Date date = new Date();
-		dimAcces.setTime_access(date);
+		dimAcces.setPerson(person);
 		dimAccessRepo.save(dimAcces);
 
 		assertNotNull(dimAccessRepo.findById(dimAcces.getId_access()));

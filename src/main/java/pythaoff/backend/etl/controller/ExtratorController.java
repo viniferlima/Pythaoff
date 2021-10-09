@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,15 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pythaoff.backend.etl.PythaoffServices;
-import pythaoff.backend.etl.Entity.Access;
 import pythaoff.backend.etl.Entity.DimAccess;
-import pythaoff.backend.etl.Entity.Permission;
-import pythaoff.backend.etl.Entity.Person;
 import pythaoff.backend.etl.Repository.AccessRepository;
 import pythaoff.backend.etl.Repository.DimAccessRepository;
 import pythaoff.backend.etl.Repository.PermissionRepository;
 import pythaoff.backend.etl.Repository.PersonRepository;
+import pythaoff.backend.etl.model.Access;
+import pythaoff.backend.etl.model.Permission;
+import pythaoff.backend.etl.model.Person;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/extrator")
 public class ExtratorController {
@@ -56,34 +58,59 @@ public class ExtratorController {
         return jsonString;
     }
 
+    @PostMapping(value = "/notaRegister")
+    public ResponseEntity<Object> notaRegister(@RequestBody final String formData) {
+
+        // matriculaRep.save()
+        // registrar data
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Transactional
+    @PostMapping(value = "/matriculaRegister")
+    public ResponseEntity<Object> matriculaRegister(@RequestBody final String formData) {
+
+        // matriculaRep.save()
+        // registrar data
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @Transactional
     @PostMapping(value = "/loginRegister")
     public ResponseEntity<Object> loginRegister(@RequestBody final String formData) {
+
+        System.out.println(formData);
 
         JSONObject loginLogJson = new JSONObject(formData);
         Access acesso = new Access();
         DimAccess dimAccess = new DimAccess();
 
+        dimAccess.setId_access(acesso.getId());
+
         if (loginLogJson.has("datahora")) {
             acesso.setDateFromString(loginLogJson.getString("datahora"));
-            dimAccess.setTime_accessFromString(loginLogJson.getString("datahora"));
-        }
-        if (loginLogJson.has("usuario") && loginLogJson.has("permissao")) {
-            // acesso.setPerson(registerUser(loginLogJson.getString("usuario"),loginLogJson.getString("permissao")));
-            acesso.setPerson(
-                    servicesRepo.NewPerson(loginLogJson.getString("usuario"), loginLogJson.getString("permissao")));
 
-            dimAccess.setPerson(
-                    servicesRepo.NewPerson(loginLogJson.getString("usuario"), loginLogJson.getString("permissao")));
+        }
+        if (loginLogJson.has("usuario") && loginLogJson.has("permissao") && loginLogJson.has("email")) {
+            // acesso.setPerson(registerUser(loginLogJson.getString("usuario"),loginLogJson.getString("permissao")));
+            acesso.setPerson(servicesRepo.NewPerson(loginLogJson.getString("usuario"), loginLogJson.getString("email"),
+                    loginLogJson.getString("permissao")));
+
+            dimAccess.setPerson(servicesRepo.NewPerson(loginLogJson.getString("usuario"),
+                    loginLogJson.getString("email"), loginLogJson.getString("permissao")));
         }
 
         acesso = accessRepository.save(acesso);
         dimAccess = dimAccessRepository.save(dimAccess);
 
         if (acesso == null) {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
     public Person registerUser(String username, String type) {

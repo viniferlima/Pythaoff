@@ -1,7 +1,4 @@
-package pythaoff.backend.etl.Entity;
-
-import java.time.ZonedDateTime;
-import java.util.Date;
+package pythaoff.backend.etl.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,22 +11,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+//Matricula
 @Entity
-@Table(name = "access")
-public class Access {
-
+@Table(name = "registration")
+public class Registration {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "access_id")
+    @Column(name = "registration_id")
     private Long id;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    @Column(name = "access_date")
-    private Date date;
 
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -37,25 +30,14 @@ public class Access {
     @JsonIgnoreProperties(value = "accesses", allowSetters = true)
     private Person person;
 
-    // @JsonProperty(value = "id")
+    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "class_id")
+    @JsonIgnoreProperties(value = "registrations", allowSetters = true)
+    private CourseClass courseClass;
+
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long access_id) {
-        this.id = access_id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDateFromString(String dateString) {
-        this.date = Date.from(ZonedDateTime.parse(dateString).toInstant());
-    }
-
-    public void setDate(Date access_date) {
-        this.date = access_date;
     }
 
     public Person getPerson() {
@@ -64,6 +46,14 @@ public class Access {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public CourseClass getCourseClass() {
+        return courseClass;
+    }
+
+    public void setCourseClass(CourseClass courseClass) {
+        this.courseClass = courseClass;
     }
 
 }
