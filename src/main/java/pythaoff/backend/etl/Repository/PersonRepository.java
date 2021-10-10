@@ -6,4 +6,6 @@ import pythaoff.backend.etl.model.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
     public Person findFirstByNome(String nome);
+
+    public Person findByName(String name);
 }

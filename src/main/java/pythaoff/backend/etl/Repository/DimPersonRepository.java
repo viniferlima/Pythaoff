@@ -6,4 +6,6 @@ import pythaoff.backend.etl.Entity.DimPerson;
 
 public interface DimPersonRepository extends JpaRepository<DimPerson, Long> {
     public DimPerson findFirstByName(String nome);
+
+    public DimPerson findByName(String name);
 }
