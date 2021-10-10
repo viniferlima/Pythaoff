@@ -6,4 +6,6 @@ import pythaoff.backend.etl.model.Permission;
 
 public interface PermissionRepository extends JpaRepository<Permission, Long> {
     public Permission findFirstByType(String type);
+
+    public Permission findByType(String type);
 }

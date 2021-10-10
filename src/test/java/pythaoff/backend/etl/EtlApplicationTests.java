@@ -3,6 +3,7 @@ package pythaoff.backend.etl;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Date;
+import java.util.HashSet;
 
 import javax.transaction.Transactional;
 
@@ -75,9 +76,11 @@ class EtlApplicationTests {
 	void InsertPersonTest() {
 		Person person = new Person();
 		person.setNome("Gustavo");
+		person.setEmail("email@gmail.com");
+		person.setAccesses(new HashSet<Access>());
 		personRepo.save(person);
 
-		assertNotNull(personRepo.findById(person.getId()));
+		assertNotNull(personRepo.findByName("Gustavo"));
 	}
 
 	@Test
@@ -87,7 +90,7 @@ class EtlApplicationTests {
 		access.setDate(date);
 		accessRepo.save(access);
 
-		assertNotNull(personRepo.findById(access.getId()));
+		assertNotNull(accessRepo.findById(access.getId()));
 	}
 
 	@Test
@@ -97,7 +100,7 @@ class EtlApplicationTests {
 		;
 		permissionRepo.save(permission);
 
-		assertNotNull(personRepo.findById(permission.getId()));
+		assertNotNull(permissionRepo.findByType("Teste"));
 	}
 
 	@Test
@@ -106,11 +109,11 @@ class EtlApplicationTests {
 		dimPerm.setType_permission("Teste");
 		dimPermissionRepo.save(dimPerm);
 
-		assertNotNull(dimPermissionRepo.findById(dimPerm.getId_permission()));
+		assertNotNull(dimPermissionRepo.findByType_permission("Teste"));
 	}
 
 	@Test
-	void InsertFactAccessDateTest() {
+	void InsertDimAccessTest() {
 
 		Person person = new Person();
 		person.setNome("Gustavo");
@@ -122,14 +125,13 @@ class EtlApplicationTests {
 		assertNotNull(dimAccessRepo.findById(dimAcces.getId_access()));
 	}
 
-	@Test
-	void InsertDimAccessTest() {
-		FactAccessDate factAccess = new FactAccessDate();
-		factAccess.setQty_access(10);
-		FactAccessDateRepo.save(factAccess);
-
-		assertNotNull(FactAccessDateRepo.findById(factAccess.getId_fact()));
-	}
+	/*
+	 * @Test void InsertFactAccessDateTest() { FactAccessDate factAccess = new
+	 * FactAccessDate(); factAccess.setQty_access(10);
+	 * FactAccessDateRepo.save(factAccess);
+	 * 
+	 * assertNotNull(FactAccessDateRepo.findById(factAccess.getId_fact())); }
+	 */
 
 	@Test
 	void InsertDataETLPersonTest() {
