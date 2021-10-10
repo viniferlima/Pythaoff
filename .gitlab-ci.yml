@@ -4,7 +4,6 @@ build:
   stage: build
   script: 
     - gradle --build-cache assemble --scan
-    - gradle test
 
 test:
   stage: test
