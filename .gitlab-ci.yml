@@ -8,6 +8,10 @@ build:
 test:
   stage: test
   script: gradle check --scan
+
+homologation:
+  stage: homologacao
+  script: gradle test
   only:
     - Release
     - merge_requests
