@@ -7,7 +7,7 @@ build:
     - gradle check --scan
 
 test:
-  stage: homologacao
+  stage: test
   script: gradle test
   only:
     - Release
