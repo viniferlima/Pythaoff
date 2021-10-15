@@ -4,12 +4,9 @@ build:
   stage: build
   script: 
     - gradle --build-cache assemble --scan
+    - gradle check --scan
 
 test:
-  stage: test
-  script: gradle check --scan
-
-homologation:
   stage: homologacao
   script: gradle test
   only:
