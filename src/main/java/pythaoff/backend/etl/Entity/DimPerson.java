@@ -17,13 +17,13 @@ public class DimPerson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_person")
+    @Column(name = "dimPerson_id")
     private Long id_access;
 
-    @Column(name = "name")
+    @Column(name = "dimPerson_name")
     private String name;
 
-    @Column(name = "email")
+    @Column(name = "dimPerson_email")
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "dimPerson")

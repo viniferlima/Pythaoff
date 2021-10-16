@@ -33,7 +33,7 @@ public class Access {
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "access_date")
-    private Date date;
+    private Date accessDate;
 
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -51,15 +51,15 @@ public class Access {
     }
 
     public Date getDate() {
-        return date;
+        return accessDate;
     }
 
     public void setDateFromString(String dateString) {
-        this.date = Date.from(ZonedDateTime.parse(dateString).toInstant());
+        this.accessDate = Date.from(ZonedDateTime.parse(dateString).toInstant());
     }
 
     public void setDate(Date access_date) {
-        this.date = access_date;
+        this.accessDate = access_date;
     }
 
     public Person getPerson() {

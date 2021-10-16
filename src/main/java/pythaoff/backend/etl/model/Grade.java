@@ -24,8 +24,8 @@ public class Grade {
     @Column(name = "grade_id")
     private Long id;
 
-    @Column(name = "grade_name")
-    private String name;
+    @Column(name = "grade_value")
+    private Long value;
  
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -37,14 +37,6 @@ public class Grade {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Registration getRegistration() {
         return registration;
     }
@@ -52,5 +44,15 @@ public class Grade {
     public void setRegistration(Registration registration) {
         this.registration = registration;
     }
+
+    public Long getValue() {
+        return value;
+    }
+
+    public void setValue(Long value) {
+        this.value = value;
+    }
+
+    
     
 }

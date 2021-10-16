@@ -1,5 +1,8 @@
 package pythaoff.backend.etl.Entity;
 
+import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,29 +22,36 @@ public class FactAccessDate {
     @Column(name = "id_fact")
     private Long id_fact;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "personName")
+    private String personName;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "personEmail")
+    private String personEmail;
 
-    @Column(name = "grade")
-    private String grade;
+    @Column(name = "accessDate")
+    private Date accessDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "iddimGrade")
+    @Column(name = "gradeValue")
+    private Long gradeValue;
+
+    @Column(name = "permissionType")
+    private String permissionType;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "dimGrade_id")
     private DimGrade dimGrade;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "iddimAccess")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "dimAccess_id")
     private DimAccess dimAccess;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "iddimPerson")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "dimPerson_id")
     private DimPerson dimPerson;
 
-    @Column(name = "qty_access")
-    private Integer qty_access;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "dimPermission_id")
+    private DimPermission dimPermission;
 
     public Long getId_fact() {
         return id_fact;
@@ -51,28 +61,44 @@ public class FactAccessDate {
         this.id_fact = id_fact;
     }
 
-    public String getName() {
-        return name;
+    public String getPersonName() {
+        return personName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPersonName(String personName) {
+        this.personName = personName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPersonEmail() {
+        return personEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPersonEmail(String personEmail) {
+        this.personEmail = personEmail;
     }
 
-    public String getGrade() {
-        return grade;
+    public Date getAccessDate() {
+        return accessDate;
     }
 
-    public void setGrade(String grade) {
-        this.grade = grade;
+    public void setAccessDate(Date accessDate) {
+        this.accessDate = accessDate;
+    }
+
+    public Long getGradeValue() {
+        return gradeValue;
+    }
+
+    public void setGradeValue(Long gradeValue) {
+        this.gradeValue = gradeValue;
+    }
+
+    public String getPermissionType() {
+        return permissionType;
+    }
+
+    public void setPermissionType(String permissionType) {
+        this.permissionType = permissionType;
     }
 
     public DimGrade getDimGrade() {
@@ -99,12 +125,14 @@ public class FactAccessDate {
         this.dimPerson = dimPerson;
     }
 
-    public Integer getQty_access() {
-        return qty_access;
+    public DimPermission getDimPermission() {
+        return dimPermission;
     }
 
-    public void setQty_access(Integer qty_access) {
-        this.qty_access = qty_access;
+    public void setDimPermission(DimPermission dimPermission) {
+        this.dimPermission = dimPermission;
     }
 
+
+    
 }

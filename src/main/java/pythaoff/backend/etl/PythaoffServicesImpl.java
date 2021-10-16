@@ -24,7 +24,7 @@ import pythaoff.backend.etl.Repository.FactAccessDateRepository;
 import pythaoff.backend.etl.Repository.GradeRepository;
 import pythaoff.backend.etl.Repository.PermissionRepository;
 import pythaoff.backend.etl.Repository.PersonRepository;
-import pythaoff.backend.etl.Repository.RegistrationRepositiry;
+import pythaoff.backend.etl.Repository.RegistrationRepository;
 import pythaoff.backend.etl.model.Access;
 import pythaoff.backend.etl.model.Course;
 import pythaoff.backend.etl.model.CourseClass;
@@ -60,14 +60,14 @@ public class PythaoffServicesImpl implements PythaoffServices {
     @Autowired
     private GradeRepository gradeRepository;
 
-    @Autowired
+    @Autowired 
     private CourseRepository courseRepository;
 
     @Autowired
     private CourseClassRepository courseClassRepository;
 
     @Autowired
-    private RegistrationRepositiry registrationRepositiry;
+    private RegistrationRepository registrationRepository;
 
     @Autowired
     private DimGradeRepository dimGradeRepository;
@@ -75,10 +75,10 @@ public class PythaoffServicesImpl implements PythaoffServices {
     @Override
     @Transactional
     public Person NewPerson(String name, String email, String perm) {
-        Person usuario = personRepo.findFirstByNome(name);
+        Person usuario = personRepo.findByName(name);
         if (usuario == null) {
             usuario = new Person();
-            usuario.setNome(name);
+            usuario.setName(name);
             usuario.setEmail(email);
             usuario.setPermission(NewPermission(perm));
             usuario.setAccesses(new HashSet<Access>());
@@ -117,16 +117,15 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
     @Override
     @Transactional
-    public Grade NewGrade(String name, Registration registration, DimGrade dimGrade) {
-        Grade grade = gradeRepository.findByName(name);
+    public Grade NewGrade(Long id, Registration registration, DimGrade dimGrade) {
+        Grade grade = gradeRepository.findByRegistrationId(id);
         if (grade == null) {
             grade = new Grade();
-            grade.setName(name);
             grade.setRegistration(NewRegistration(registration.getPerson(), registration.getCourseClass()));
             gradeRepository.save(grade);
 
         }
-        NewDimGrade(dimGrade.getPerson(), dimGrade.getCourse(), dimGrade.getAverage_grade());
+        NewDimGrade(dimGrade.getGrade());
         return grade;
     }
 
@@ -135,12 +134,12 @@ public class PythaoffServicesImpl implements PythaoffServices {
     public Registration NewRegistration(Person person, CourseClass courseClass) {
 
         Registration registration = new Registration();
-        registration.setPerson(NewPerson(person.getNome(), person.getEmail(), person.getPermission().getType()));
+        registration.setPerson(NewPerson(person.getName(), person.getEmail(), person.getPermission().getType()));
 
         registration.setCourseClass(NewCourseClass(courseClass.getName(), courseClass.getStartDate(),
                 courseClass.getEndDate(), courseClass.getCourse()));
 
-        registrationRepositiry.save(registration);
+        registrationRepository.save(registration);
 
         return registration;
 
@@ -180,12 +179,10 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
     @Override
     @Transactional
-    public DimGrade NewDimGrade(Person person, Course course, String average_grade) {
+    public DimGrade NewDimGrade(Long grade) {
 
         DimGrade dimGrade = new DimGrade();
-        dimGrade.setPerson(NewPerson(person.getNome(), person.getEmail(), person.getPermission().getType()));
-        dimGrade.setCourse(NewCourse(course.getName(), course.getDescription()));
-        dimGrade.setAverage_grade(average_grade);
+        dimGrade.setGrade(grade);
         dimGradeRepository.save(dimGrade);
 
         return dimGrade;
@@ -206,10 +203,10 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
     @Override
     @Transactional
-    public DimAccess NewDimAccess(Person person) {
+    public DimAccess NewDimAccess(Date date) {
 
         DimAccess dimAccess = new DimAccess();
-        dimAccess.setPerson(person);
+        dimAccess.setDate(date);
         dimAccessRepo.save(dimAccess);
 
         return dimAccess;

@@ -19,40 +19,29 @@ public class DimPermission {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_permission")
-    private Long id_permission;
+    @Column(name = "dimPermission_id")
+    private Long id;
 
-    @Column(name = "type_permission")
-    private String type_permission;
-
-    @Column(name = "person")
-    private Person person;
+    @Column(name = "dimPermission_typePermission")
+    private String type;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "dimPermission")
     private Set<FactAccessDate> factAccessDate;
 
-    public Person getPerson() {
-        return person;
+    public Long getId() {
+        return id;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setId(Long id_permission) {
+        this.id = id_permission;
     }
 
-    public Long getId_permission() {
-        return id_permission;
-    }
-
-    public void setId_permission(Long id_permission) {
-        this.id_permission = id_permission;
-    }
-
-    public String getType_permission() {
-        return type_permission;
+    public String getType() {
+        return type;
     }
 
     public void setType_permission(String type_permission) {
-        this.type_permission = type_permission;
+        this.type = type_permission;
     }
 
     public Set<FactAccessDate> getFactAccessDate() {

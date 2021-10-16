@@ -13,30 +13,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import pythaoff.backend.etl.model.Person;
-
 @Entity
 @Table(name = "dimAccess")
 public class DimAccess {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_access")
+    @Column(name = "dimAccess_id")
     private Long id_access;
 
-    @Column(name = "person")
-    private Person person;
+    @Column(name = "dimAccess_id_date")
+    private Date date;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "dimAccess")
     private Set<FactAccessDate> factAccessDate;
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
 
     public Long getId_access() {
         return id_access;
@@ -52,6 +42,14 @@ public class DimAccess {
 
     public void setFactAccessDate(Set<FactAccessDate> factAccessDate) {
         this.factAccessDate = factAccessDate;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
 }

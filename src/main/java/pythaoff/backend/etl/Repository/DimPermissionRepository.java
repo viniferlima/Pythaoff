@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import pythaoff.backend.etl.Entity.DimPermission;
 
 public interface DimPermissionRepository extends JpaRepository<DimPermission, Long> {
-    public DimPermission findByType_permission(String string);
+    public DimPermission findByType(String type);
 }

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import pythaoff.backend.etl.model.Access;
 
 public interface AccessRepository extends JpaRepository<Access, Long> {
-    public List<Access> findAllByOrderByDate();
+    public List<Access> findAllByOrderByAccessDate();
 
-    public Access findByPersonNome(String nome);
+    public Access findByPersonName(String nome);
 }

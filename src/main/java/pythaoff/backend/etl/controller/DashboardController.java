@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pythaoff.backend.etl.Repository.AccessRepository;
+import pythaoff.backend.etl.Repository.FactAccessDateRepository;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -20,12 +21,15 @@ public class DashboardController {
     @Autowired
     AccessRepository accessRepository;
 
+    @Autowired
+    FactAccessDateRepository factAccessDateRepository;
+
     @GetMapping("/notas")
     public String getNotas(@RequestParam(name="name", required = false, defaultValue = "Ahmed") String matricula) {
         String jsonString = "";        
         ObjectMapper mapper = new ObjectMapper(); 
         try {
-            jsonString = mapper.writeValueAsString(accessRepository.findAllByOrderByDate());;
+            jsonString = mapper.writeValueAsString(accessRepository.findAllByOrderByAccessDate());;
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } 
@@ -37,7 +41,7 @@ public class DashboardController {
         String jsonString = "";        
         ObjectMapper mapper = new ObjectMapper(); 
         try {
-            jsonString = mapper.writeValueAsString(accessRepository.findAllByOrderByDate());
+            jsonString = mapper.writeValueAsString(factAccessDateRepository.findAllByOrderByAccessDate());
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } 
