@@ -3,30 +3,25 @@ package pythaoff.backend.etl.Entity;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-import pythaoff.backend.etl.model.Course;
-import pythaoff.backend.etl.model.Person;
-
+@Entity
+@Table(name = "dimGrade")
 public class DimGrade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_grade")
-    private Long id_access;
+    @Column(name = "dimGrade_id")
+    private Long id;
 
-    @Column(name = "person")
-    private Person person;
-
-    @Column(name = "course")
-    private Course course;
-
-    @Column(name = "average_grade")
-    private String average_grade;
+    @Column(name = "dimGrade_grade")
+    private Long grade;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "dimGrade")
     private Set<FactAccessDate> factAccessDate;
@@ -39,36 +34,22 @@ public class DimGrade {
         this.factAccessDate = factAccessDate;
     }
 
-    public Long getId_access() {
-        return id_access;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_access(Long id_access) {
-        this.id_access = id_access;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Person getPerson() {
-        return person;
+    public Long getGrade() {
+        return grade;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setGrade(Long grade) {
+        this.grade = grade;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
-    public String getAverage_grade() {
-        return average_grade;
-    }
-
-    public void setAverage_grade(String average_grade) {
-        this.average_grade = average_grade;
-    }
+    
 
 }

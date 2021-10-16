@@ -98,8 +98,8 @@ public class ExtratorController {
             acesso.setPerson(servicesRepo.NewPerson(loginLogJson.getString("usuario"), loginLogJson.getString("email"),
                     loginLogJson.getString("permissao")));
 
-            dimAccess.setPerson(servicesRepo.NewPerson(loginLogJson.getString("usuario"),
-                    loginLogJson.getString("email"), loginLogJson.getString("permissao")));
+            // dimAccess.setPerson(servicesRepo.NewPerson(loginLogJson.getString("usuario"),
+            //         loginLogJson.getString("email"), loginLogJson.getString("permissao")));
         }
 
         acesso = accessRepository.save(acesso);
@@ -114,10 +114,10 @@ public class ExtratorController {
     }
 
     public Person registerUser(String username, String type) {
-        Person usuario = personRepository.findFirstByNome(username);
+        Person usuario = personRepository.findByName(username);
         if (usuario == null) {
             usuario = new Person();
-            usuario.setNome(username);
+            usuario.setName(username);
             usuario.setPermission(registerPermission(type));
             usuario = personRepository.save(usuario);
             System.out.println("Gerando usuário.");

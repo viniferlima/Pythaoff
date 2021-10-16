@@ -27,7 +27,7 @@ public class Person {
     private Long id;
 
     @Column(name = "name")
-    private String nome;
+    private String name;
 
     @Column(name = "email")
     private String email;
@@ -78,12 +78,12 @@ public class Person {
         this.id = psn_id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String psn_name) {
-        this.nome = psn_name;
+    public void setName(String psn_name) {
+        this.name = psn_name;
     }
 
 }

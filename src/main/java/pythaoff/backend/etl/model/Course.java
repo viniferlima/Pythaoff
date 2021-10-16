@@ -30,8 +30,8 @@ public class Course {
     private String description;
 
     @JsonIgnore // @JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "class")
-    private Set<CourseClass> classes;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    private Set<CourseClass> courseClasses;
 
     public Long getId() {
         return id;
@@ -58,11 +58,11 @@ public class Course {
     }
 
     public Set<CourseClass> getClasses() {
-        return classes;
+        return courseClasses;
     }
 
     public void setClasses(Set<CourseClass> classes) {
-        this.classes = classes;
+        this.courseClasses = classes;
     }
 
 }
