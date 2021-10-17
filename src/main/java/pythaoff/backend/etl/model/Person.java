@@ -45,6 +45,14 @@ public class Person {
     @JoinColumn(name = "permission_id")
     private Permission permission;
 
+    public Set<Registration> getRegistrations() {
+        return registrations;
+    }
+
+    public void setRegistrations(Set<Registration> registrations) {
+        this.registrations = registrations;
+    }
+
     public String getEmail() {
         return email;
     }

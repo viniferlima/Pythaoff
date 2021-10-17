@@ -60,7 +60,7 @@ public class PythaoffServicesImpl implements PythaoffServices {
     @Autowired
     private GradeRepository gradeRepository;
 
-    @Autowired 
+    @Autowired
     private CourseRepository courseRepository;
 
     @Autowired
@@ -82,6 +82,7 @@ public class PythaoffServicesImpl implements PythaoffServices {
             usuario.setEmail(email);
             usuario.setPermission(NewPermission(perm));
             usuario.setAccesses(new HashSet<Access>());
+            usuario.setRegistrations(new HashSet<Registration>());
             personRepo.save(usuario);
         }
 
@@ -117,7 +118,7 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
     @Override
     @Transactional
-    public Grade NewGrade(Long id, Registration registration, DimGrade dimGrade) {
+    public Grade NewGrade(Long id, Registration registration) {
         Grade grade = gradeRepository.findByRegistrationId(id);
         if (grade == null) {
             grade = new Grade();
@@ -125,7 +126,7 @@ public class PythaoffServicesImpl implements PythaoffServices {
             gradeRepository.save(grade);
 
         }
-        NewDimGrade(dimGrade.getGrade());
+
         return grade;
     }
 
@@ -180,22 +181,24 @@ public class PythaoffServicesImpl implements PythaoffServices {
     @Override
     @Transactional
     public DimGrade NewDimGrade(Long grade) {
-
-        DimGrade dimGrade = new DimGrade();
-        dimGrade.setGrade(grade);
-        dimGradeRepository.save(dimGrade);
-
+        DimGrade dimGrade = dimGradeRepository.findByGrade(grade);
+        if (dimGrade == null) {
+            dimGrade = new DimGrade();
+            dimGrade.setGrade(grade);
+            dimGradeRepository.save(dimGrade);
+        }
         return dimGrade;
     }
 
     @Override
     @Transactional
     public DimPerson NewDimPerson(String name, String email) {
-        DimPerson usuario = dimPersonRepository.findFirstByName(name);
+        DimPerson usuario = dimPersonRepository.findByName(name);
         if (usuario == null) {
             usuario = new DimPerson();
             usuario.setName(name);
             usuario.setEmail(email);
+            usuario.setFactAccessDate(new HashSet<FactAccessDate>());
             dimPersonRepository.save(usuario);
         }
         return usuario;
@@ -203,10 +206,11 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
     @Override
     @Transactional
-    public DimAccess NewDimAccess(Date date) {
+    public DimAccess NewDimAccess(String date) {
 
         DimAccess dimAccess = new DimAccess();
-        dimAccess.setDate(date);
+        dimAccess.setDateFromString(date);
+        dimAccess.setFactAccessDate(new HashSet<FactAccessDate>());
         dimAccessRepo.save(dimAccess);
 
         return dimAccess;
@@ -215,11 +219,13 @@ public class PythaoffServicesImpl implements PythaoffServices {
     @Override
     @Transactional
     public DimPermission NewDimPermission(String type_permission) {
-
-        DimPermission dimPermission = new DimPermission();
-        dimPermission.setType_permission(type_permission);
-        dimPermissionRepo.save(dimPermission);
-
+        DimPermission dimPermission = dimPermissionRepo.findByType(type_permission);
+        if (dimPermission == null) {
+            dimPermission = new DimPermission();
+            dimPermission.setType_permission(type_permission);
+            dimPermission.setFactAccessDate(new HashSet<FactAccessDate>());
+            dimPermissionRepo.save(dimPermission);
+        }
         return dimPermission;
     }
 

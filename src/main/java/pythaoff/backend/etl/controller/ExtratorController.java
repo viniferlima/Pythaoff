@@ -1,5 +1,9 @@
 package pythaoff.backend.etl.controller;
 
+import java.util.HashSet;
+
+import javax.sql.rowset.serial.SerialArray;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -17,13 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pythaoff.backend.etl.PythaoffServices;
 import pythaoff.backend.etl.Entity.DimAccess;
+import pythaoff.backend.etl.Entity.DimGrade;
+import pythaoff.backend.etl.Entity.DimPermission;
+import pythaoff.backend.etl.Entity.DimPerson;
 import pythaoff.backend.etl.Repository.AccessRepository;
 import pythaoff.backend.etl.Repository.DimAccessRepository;
 import pythaoff.backend.etl.Repository.PermissionRepository;
 import pythaoff.backend.etl.Repository.PersonRepository;
 import pythaoff.backend.etl.model.Access;
+import pythaoff.backend.etl.model.Grade;
 import pythaoff.backend.etl.model.Permission;
 import pythaoff.backend.etl.model.Person;
+import pythaoff.backend.etl.model.Registration;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -85,25 +94,19 @@ public class ExtratorController {
 
         JSONObject loginLogJson = new JSONObject(formData);
         Access acesso = new Access();
-        DimAccess dimAccess = new DimAccess();
-
-        dimAccess.setId_access(acesso.getId());
 
         if (loginLogJson.has("datahora")) {
             acesso.setDateFromString(loginLogJson.getString("datahora"));
+            servicesRepo.NewDimAccess(loginLogJson.getString("datahora"));
 
         }
         if (loginLogJson.has("usuario") && loginLogJson.has("permissao") && loginLogJson.has("email")) {
-            // acesso.setPerson(registerUser(loginLogJson.getString("usuario"),loginLogJson.getString("permissao")));
             acesso.setPerson(servicesRepo.NewPerson(loginLogJson.getString("usuario"), loginLogJson.getString("email"),
                     loginLogJson.getString("permissao")));
 
-            // dimAccess.setPerson(servicesRepo.NewPerson(loginLogJson.getString("usuario"),
-            //         loginLogJson.getString("email"), loginLogJson.getString("permissao")));
         }
 
         acesso = accessRepository.save(acesso);
-        dimAccess = dimAccessRepository.save(dimAccess);
 
         if (acesso == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -113,16 +116,23 @@ public class ExtratorController {
 
     }
 
-    public Person registerUser(String username, String type) {
+    public Person registerUser(String username, String email, String type) {
         Person usuario = personRepository.findByName(username);
         if (usuario == null) {
             usuario = new Person();
             usuario.setName(username);
-            usuario.setPermission(registerPermission(type));
+            usuario.setEmail(email);
+            usuario.setPermission(servicesRepo.NewPermission(type));
+            usuario.setAccesses(new HashSet<Access>());
+            usuario.setRegistrations(new HashSet<Registration>());
             usuario = personRepository.save(usuario);
             System.out.println("Gerando usuário.");
         }
         System.out.println("Usuário: " + usuario.toString());
+
+        DimPerson dimPerson = servicesRepo.NewDimPerson(username, email);
+        System.out.println("Dim Usuário: " + dimPerson.toString());
+
         return usuario;
     }
 
@@ -135,7 +145,23 @@ public class ExtratorController {
             System.out.println("Gerando permissao.");
         }
         System.out.println("Permissao: " + permissao.toString());
+
+        DimPermission dimPermission = servicesRepo.NewDimPermission(type);
+        System.out.println("Dim Permissão: " + dimPermission.toString());
+
         return permissao;
+    }
+
+    public Grade registerGrade(Long id, Registration registration) {
+
+        Grade grade = servicesRepo.NewGrade(id, registration);
+        System.out.println("Gerando grade.");
+        System.out.println("Grade: " + grade.toString());
+
+        DimGrade dimGrade = servicesRepo.NewDimGrade(grade.getId());
+        System.out.println("Dim Grade: " + dimGrade.toString());
+
+        return grade;
     }
 
 }

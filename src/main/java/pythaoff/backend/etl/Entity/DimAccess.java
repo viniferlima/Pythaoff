@@ -52,4 +52,8 @@ public class DimAccess {
         this.date = date;
     }
 
+    public void setDateFromString(String dateString) {
+        this.date = Date.from(ZonedDateTime.parse(dateString).toInstant());
+    }
+
 }
