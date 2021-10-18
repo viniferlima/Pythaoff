@@ -10,5 +10,5 @@ test:
   stage: test
   script: gradle test
   only:
-    - Release
+    - main
     - merge_requests

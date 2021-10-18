@@ -27,7 +27,7 @@ public interface PythaoffServices {
 
     public Permission NewPermission(String type_permission);
 
-    public Grade NewGrade(Long id, Registration registration);
+    public Grade NewGrade(Long id, Double grade);
 
     public Course NewCourse(String name, String descricao);
 
@@ -35,26 +35,26 @@ public interface PythaoffServices {
 
     public CourseClass NewCourseClass(String name, Date startdate, Date endDate, Course course);
 
-    public DimGrade NewDimGrade(Long grade);
+    public DimGrade newDimGrade(Double grade);
 
-    public DimPerson NewDimPerson(String name, String email);
+    public DimPerson newDimPerson(String name, String email);
 
-    public DimAccess NewDimAccess(String date);
+    public DimAccess newDimAccess(String date);
 
-    public DimPermission NewDimPermission(String type_permission);
+    public DimPermission newDimPermission(String type_permission);
 
-    public FactAccessDate NewFactAccessDate(Date time_access, DimAccess dimAccess, DimPermission dimPermission,
-            Integer qty_access);
+    public FactAccessDate newFactAccessDate(String personName, String personEmail, Date accessDate, String permissionType, 
+            DimAccess dimAccess, DimPerson dimPerson, DimPermission dimPermission);
 
-    public DimCourse NewDimCourse(String name, String description);
+    public DimCourse newDimCourse(String name, String description);
 
-    public DimCourseClass NewDimCourseClass(String name, Date startDate, Date endDate);
+    public DimCourseClass newDimCourseClass(String name, Date startDate, Date endDate);
 
-    public DimRegistration NewDimRegistration(Long id);
+    public DimRegistration newDimRegistration(Long id);
 
-    public FactRegistrationGrade NewFactRegistrationGrade(Long id_fact, String dimCourseClassName, Date courseClassStartDate,
+    public FactRegistrationGrade newFactRegistrationGrade(String dimCourseClassName, Date courseClassStartDate,
     Date courseClassEndDate, Long registrationId, String courseName, String courseDescription,
-    String personName, String personEmail, Long grade, String permissionType, DimCourseClass dimCourseClass,
+    String personName, String personEmail, Double grade, String permissionType, DimCourseClass dimCourseClass,
     DimRegistration dimRegistration, DimCourse dimCourse, DimPerson dimPerson, DimGrade dimGrade,
     DimPermission dimPermission);
 

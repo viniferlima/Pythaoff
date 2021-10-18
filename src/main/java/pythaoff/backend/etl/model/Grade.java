@@ -25,7 +25,7 @@ public class Grade {
     private Long id;
 
     @Column(name = "grade_value")
-    private Long value;
+    private Double value;
  
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -45,11 +45,11 @@ public class Grade {
         this.registration = registration;
     }
 
-    public Long getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Long value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

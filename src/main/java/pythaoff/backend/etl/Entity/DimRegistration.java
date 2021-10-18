@@ -28,5 +28,11 @@ public class DimRegistration {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public DimRegistration(Long id) {
+        this.id = id;
+    }
+    
+    public DimRegistration() {}
     
 }

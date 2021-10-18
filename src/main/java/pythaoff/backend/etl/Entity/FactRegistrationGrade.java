@@ -16,9 +16,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "factAccessDate")
+@Table(name = "factRegistrationDate")
 public class FactRegistrationGrade {
 
     @Id
@@ -63,34 +64,39 @@ public class FactRegistrationGrade {
     //----------------------------------------------------------------
 
     @Column(name = "dimGrade_grade")
-    private Long grade;
+    private Double grade;
 
     //----------------------------------------------------------------
 
     @Column(name = "dimPermission_typePermission")
     private String permissionType;
 
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "dimCourseClass_id")
     private DimCourseClass dimCourseClass;
     
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "registration_id")
     private DimRegistration dimRegistration;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "dimCourse_id")
     private DimCourse dimCourse;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "dimPerson_id")
     private DimPerson dimPerson;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "dimGrade_id")
     private DimGrade dimGrade;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "dimPermission_id")
     private DimPermission dimPermission;
@@ -167,11 +173,11 @@ public class FactRegistrationGrade {
         this.personEmail = personEmail;
     }
 
-    public Long getGrade() {
+    public Double getGrade() {
         return grade;
     }
 
-    public void setGrade(Long grade) {
+    public void setGrade(Double grade) {
         this.grade = grade;
     }
 
@@ -233,12 +239,11 @@ public class FactRegistrationGrade {
 
     
 
-    public FactRegistrationGrade(Long id_fact, String dimCourseClassName, Date courseClassStartDate,
+    public FactRegistrationGrade(String dimCourseClassName, Date courseClassStartDate,
             Date courseClassEndDate, Long registrationId, String courseName, String courseDescription,
-            String personName, String personEmail, Long grade, String permissionType, DimCourseClass dimCourseClass,
+            String personName, String personEmail, Double grade, String permissionType, DimCourseClass dimCourseClass,
             DimRegistration dimRegistration, DimCourse dimCourse, DimPerson dimPerson, DimGrade dimGrade,
             DimPermission dimPermission) {
-        this.id_fact = id_fact;
         this.dimCourseClassName = dimCourseClassName;
         this.courseClassStartDate = courseClassStartDate;
         this.courseClassEndDate = courseClassEndDate;

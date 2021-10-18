@@ -106,7 +106,7 @@ public class PythaoffServicesImpl implements PythaoffServices {
             personRepo.save(usuario);
         }
 
-        NewDimPerson(name, email);
+        // newDimPerson(name, email);
 
         return usuario;
     }
@@ -138,11 +138,11 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
     @Override
     @Transactional
-    public Grade NewGrade(Long id, Registration registration) {
+    public Grade NewGrade(Long id, Double value) {
         Grade grade = gradeRepository.findByRegistrationId(id);
         if (grade == null) {
             grade = new Grade();
-            grade.setRegistration(NewRegistration(registration.getPerson(), registration.getCourseClass()));
+            // grade.setRegistration(NewRegistration(registration.getPerson(), registration.getCourseClass()));
             gradeRepository.save(grade);
 
         }
@@ -200,9 +200,9 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
     @Override
     @Transactional
-    public DimGrade NewDimGrade(Long grade) {
-        DimGrade dimGrade = dimGradeRepository.findByGrade(grade);
-        if (dimGrade == null) {
+    public DimGrade newDimGrade(Double grade) {
+        DimGrade dimGrade = new DimGrade(); 
+        if (grade == null) {
             dimGrade = new DimGrade();
             dimGrade.setGrade(grade);
             dimGradeRepository.save(dimGrade);
@@ -212,7 +212,7 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
     @Override
     @Transactional
-    public DimPerson NewDimPerson(String name, String email) {
+    public DimPerson newDimPerson(String name, String email) {
         DimPerson usuario = dimPersonRepository.findByName(name);
         if (usuario == null) {
             usuario = new DimPerson();
@@ -226,7 +226,7 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
     @Override
     @Transactional
-    public DimAccess NewDimAccess(String date) {
+    public DimAccess newDimAccess(String date) {
 
         DimAccess dimAccess = new DimAccess();
         dimAccess.setDateFromString(date);
@@ -238,7 +238,7 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
     @Override
     @Transactional
-    public DimPermission NewDimPermission(String type_permission) {
+    public DimPermission newDimPermission(String type_permission) {
         DimPermission dimPermission = dimPermissionRepo.findByType(type_permission);
         if (dimPermission == null) {
             dimPermission = new DimPermission();
@@ -249,22 +249,7 @@ public class PythaoffServicesImpl implements PythaoffServices {
         return dimPermission;
     }
 
-    @Override
-    @Transactional
-    public FactAccessDate NewFactAccessDate(Date time_access, DimAccess dimAccess, DimPermission dimPermission,
-            Integer qty_access) {
-
-        FactAccessDate factAccessDate = new FactAccessDate();
-        // factAccessDate.setTime_access(time_access);
-        // factAccessDate.setDimAccess(dimAccess);
-        // factAccessDate.setDimPermission(dimPermission);
-        // factAccessDate.setQty_access(qty_access);
-        // FactAccessDateRepo.save(factAccessDate);
-
-        return factAccessDate;
-    }
-
-    public DimCourse NewDimCourse(String name, String description){
+    public DimCourse newDimCourse(String name, String description){
         DimCourse dimCourse = new DimCourse();
         dimCourse.setName(name);
         dimCourse.setDescription(description);
@@ -273,7 +258,7 @@ public class PythaoffServicesImpl implements PythaoffServices {
         return dimCourse;
     };
 
-    public DimCourseClass NewDimCourseClass(String name, Date startDate, Date endDate){
+    public DimCourseClass newDimCourseClass(String name, Date startDate, Date endDate){
         DimCourseClass dimCourseClass = new DimCourseClass();
         dimCourseClass.setName(name);
         dimCourseClass.setStartDate(startDate);
@@ -283,20 +268,33 @@ public class PythaoffServicesImpl implements PythaoffServices {
         return dimCourseClass;
     };
 
-    public DimRegistration NewDimRegistration(Long id){
-        DimRegistration dimRegistration = new DimRegistration();
-        dimRegistration.setId(id);
+    public DimRegistration newDimRegistration(Long id){
+        DimRegistration dimRegistration = new DimRegistration(id);
         dimRegistrationRepository.save(dimRegistration);
 
         return dimRegistration;
     };
 
-    public FactRegistrationGrade NewFactRegistrationGrade(Long id_fact, String dimCourseClassName, Date courseClassStartDate,
-    Date courseClassEndDate, Long registrationId, String courseName, String courseDescription,
-    String personName, String personEmail, Long grade, String permissionType, DimCourseClass dimCourseClass,
-    DimRegistration dimRegistration, DimCourse dimCourse, DimPerson dimPerson, DimGrade dimGrade,
-    DimPermission dimPermission){
-        FactRegistrationGrade factRegistrationGrade = new FactRegistrationGrade(id_fact, dimCourseClassName, courseClassStartDate,
+    
+    @Override
+    @Transactional
+    public FactAccessDate newFactAccessDate(String personName, String personEmail, Date accessDate, String permissionType,
+            DimAccess dimAccess, DimPerson dimPerson, DimPermission dimPermission) {
+
+        FactAccessDate factAccessDate = new FactAccessDate(personName, personEmail, accessDate, permissionType,
+                                                            dimAccess, dimPerson, dimPermission);
+        FactAccessDateRepo.save(factAccessDate);
+        return factAccessDate;
+    }
+
+    @Transactional
+    public FactRegistrationGrade newFactRegistrationGrade(String dimCourseClassName, Date courseClassStartDate,
+            Date courseClassEndDate, Long registrationId, String courseName, String courseDescription,
+            String personName, String personEmail, Double grade, String permissionType, DimCourseClass dimCourseClass,
+            DimRegistration dimRegistration, DimCourse dimCourse, DimPerson dimPerson, DimGrade dimGrade,
+            DimPermission dimPermission){
+
+        FactRegistrationGrade factRegistrationGrade = new FactRegistrationGrade(dimCourseClassName, courseClassStartDate,
             courseClassEndDate, registrationId, courseName, courseDescription, personName, personEmail, grade, permissionType,
             dimCourseClass, dimRegistration, dimCourse, dimPerson, dimGrade, dimPermission);
 

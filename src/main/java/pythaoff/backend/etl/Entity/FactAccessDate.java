@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "factAccessDate")
 public class FactAccessDate {
@@ -31,24 +33,20 @@ public class FactAccessDate {
     @Column(name = "accessDate")
     private Date accessDate;
 
-    @Column(name = "gradeValue")
-    private Long gradeValue;
-
     @Column(name = "permissionType")
     private String permissionType;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "dimGrade_id")
-    private DimGrade dimGrade;
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "dimAccess_id")
     private DimAccess dimAccess;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "dimPerson_id")
     private DimPerson dimPerson;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "dimPermission_id")
     private DimPermission dimPermission;
@@ -85,28 +83,12 @@ public class FactAccessDate {
         this.accessDate = accessDate;
     }
 
-    public Long getGradeValue() {
-        return gradeValue;
-    }
-
-    public void setGradeValue(Long gradeValue) {
-        this.gradeValue = gradeValue;
-    }
-
     public String getPermissionType() {
         return permissionType;
     }
 
     public void setPermissionType(String permissionType) {
         this.permissionType = permissionType;
-    }
-
-    public DimGrade getDimGrade() {
-        return dimGrade;
-    }
-
-    public void setDimGrade(DimGrade dimGrade) {
-        this.dimGrade = dimGrade;
     }
 
     public DimAccess getDimAccess() {
@@ -133,6 +115,19 @@ public class FactAccessDate {
         this.dimPermission = dimPermission;
     }
 
+    public FactAccessDate(String personName, String personEmail, Date accessDate, String permissionType,
+            DimAccess dimAccess, DimPerson dimPerson, DimPermission dimPermission) {
+        this.personName = personName;
+        this.personEmail = personEmail;
+        this.accessDate = accessDate;
+        this.permissionType = permissionType;
+        this.dimAccess = dimAccess;
+        this.dimPerson = dimPerson;
+        this.dimPermission = dimPermission;
+    }
 
+    public FactAccessDate() {}
+
+    
     
 }

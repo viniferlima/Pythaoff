@@ -1,12 +1,13 @@
 package pythaoff.backend.etl.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
-
-import javax.sql.rowset.serial.SerialArray;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,11 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pythaoff.backend.etl.PythaoffServices;
 import pythaoff.backend.etl.Entity.DimAccess;
+import pythaoff.backend.etl.Entity.DimCourse;
+import pythaoff.backend.etl.Entity.DimCourseClass;
 import pythaoff.backend.etl.Entity.DimGrade;
 import pythaoff.backend.etl.Entity.DimPermission;
 import pythaoff.backend.etl.Entity.DimPerson;
+import pythaoff.backend.etl.Entity.DimRegistration;
+import pythaoff.backend.etl.Entity.FactAccessDate;
+import pythaoff.backend.etl.Entity.FactRegistrationGrade;
 import pythaoff.backend.etl.Repository.AccessRepository;
 import pythaoff.backend.etl.Repository.DimAccessRepository;
+import pythaoff.backend.etl.Repository.FactAccessDateRepository;
 import pythaoff.backend.etl.Repository.PermissionRepository;
 import pythaoff.backend.etl.Repository.PersonRepository;
 import pythaoff.backend.etl.model.Access;
@@ -49,30 +56,27 @@ public class ExtratorController {
     AccessRepository accessRepository;
 
     @Autowired
-    PythaoffServices servicesRepo;
+    PythaoffServices pythaoffServices;
 
     @Autowired
     DimAccessRepository dimAccessRepository;
 
-    @Transactional
-    @GetMapping(value = "/acessos")
-    public String getAcessos() {
-        String jsonString = "";
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            jsonString = mapper.writeValueAsString(accessRepository.findAll());
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return jsonString;
-    }
+    @Autowired
+    FactAccessDateRepository factAccessDateRepository;
 
     @PostMapping(value = "/notaRegister")
-    public ResponseEntity<Object> notaRegister(@RequestBody final String formData) {
+    public ResponseEntity<Object> notaRegister(@RequestBody final String formData) throws JSONException, ParseException {
 
-        // matriculaRep.save()
-        // registrar data
+        JSONObject logJson = new JSONObject(formData);
 
+        
+        FactRegistrationGrade factRegistrationGrade = pythaoffServices.newFactRegistrationGrade(logJson.getString("dimCourseClassName"), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(logJson.getString("courseClassStartDate")), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(logJson.getString("courseClassEndDate")),
+        Long.parseLong(logJson.getString("registrationId")), logJson.getString("courseName"), logJson.getString("courseDescription"), logJson.getString("personName"), logJson.getString("personEmail"), Double.parseDouble(logJson.getString("grade")), logJson.getString("permissionType"),
+         new DimCourseClass(), new DimRegistration(Long.parseLong(logJson.getString("registrationId"))), new DimCourse(), new DimPerson(), new DimGrade(), new DimPermission());
+
+        if (factRegistrationGrade == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -90,31 +94,41 @@ public class ExtratorController {
 
     @Transactional
     @PostMapping(value = "/loginRegister")
-    public ResponseEntity<Object> loginRegister(@RequestBody final String formData) {
+    public ResponseEntity<Object> loginRegister(@RequestBody final String formData) throws JSONException, ParseException {
 
         System.out.println(formData);
 
-        JSONObject loginLogJson = new JSONObject(formData);
-        Access acesso = new Access();
+        JSONObject logJson = new JSONObject(formData);
 
-        if (loginLogJson.has("datahora")) {
-            acesso.setDateFromString(loginLogJson.getString("datahora"));
-            servicesRepo.NewDimAccess(loginLogJson.getString("datahora"));
+    
+        FactAccessDate factAccessDate = pythaoffServices.newFactAccessDate(logJson.getString("personName"), logJson.getString("personEmail"),
+        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(logJson.getString("accessDate")), logJson.getString("permissionType"), new DimAccess(), new DimPerson(), new DimPermission());
 
-        }
-        if (loginLogJson.has("usuario") && loginLogJson.has("permissao") && loginLogJson.has("email")) {
-            acesso.setPerson(servicesRepo.NewPerson(loginLogJson.getString("usuario"), loginLogJson.getString("email"),
-                    loginLogJson.getString("permissao")));
-
-        }
-
-        acesso = accessRepository.save(acesso);
-
-        if (acesso == null) {
+        if (factAccessDate == null){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
         return new ResponseEntity<>(HttpStatus.OK);
+
+        // Access acesso = new Access();
+
+        // if (loginLogJson.has("datahora")) {
+        //     acesso.setDateFromString(loginLogJson.getString("datahora"));
+        //     pythaoffServices.newDimAccess(loginLogJson.getString("datahora"));
+
+        // }
+
+        // if (loginLogJson.has("usuario") && loginLogJson.has("permissao") && loginLogJson.has("email")) {
+        //     acesso.setPerson(pythaoffServices.NewPerson(loginLogJson.getString("usuario"), loginLogJson.getString("email"),
+        //             loginLogJson.getString("permissao")));
+        // }
+
+        // acesso = accessRepository.save(acesso);
+
+        // if (acesso == null) {
+        //     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        // }
+
+        // return new ResponseEntity<>(HttpStatus.OK);
 
     }
 
@@ -124,7 +138,7 @@ public class ExtratorController {
             usuario = new Person();
             usuario.setName(username);
             usuario.setEmail(email);
-            usuario.setPermission(servicesRepo.NewPermission(type));
+            usuario.setPermission(pythaoffServices.NewPermission(type));
             usuario.setAccesses(new HashSet<Access>());
             usuario.setRegistrations(new HashSet<Registration>());
             usuario = personRepository.save(usuario);
@@ -132,7 +146,7 @@ public class ExtratorController {
         }
         System.out.println("Usuário: " + usuario.toString());
 
-        DimPerson dimPerson = servicesRepo.NewDimPerson(username, email);
+        DimPerson dimPerson = pythaoffServices.newDimPerson(username, email);
         System.out.println("Dim Usuário: " + dimPerson.toString());
 
         return usuario;
@@ -148,19 +162,19 @@ public class ExtratorController {
         }
         System.out.println("Permissao: " + permissao.toString());
 
-        DimPermission dimPermission = servicesRepo.NewDimPermission(type);
+        DimPermission dimPermission = pythaoffServices.newDimPermission(type);
         System.out.println("Dim Permissão: " + dimPermission.toString());
 
         return permissao;
     }
 
-    public Grade registerGrade(Long id, Registration registration) {
+    public Grade registerGrade(Long id, Double value) {
 
-        Grade grade = servicesRepo.NewGrade(id, registration);
+        Grade grade = pythaoffServices.NewGrade(id, value);
         System.out.println("Gerando grade.");
         System.out.println("Grade: " + grade.toString());
 
-        DimGrade dimGrade = servicesRepo.NewDimGrade(grade.getId());
+        DimGrade dimGrade = pythaoffServices.newDimGrade(value);
         System.out.println("Dim Grade: " + dimGrade.toString());
 
         return grade;

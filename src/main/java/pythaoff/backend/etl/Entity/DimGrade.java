@@ -21,18 +21,10 @@ public class DimGrade {
     private Long id;
 
     @Column(name = "dimGrade_grade")
-    private Long grade;
+    private Double grade;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "dimGrade")
-    private Set<FactAccessDate> factAccessDate;
-
-    public Set<FactAccessDate> getFactAccessDate() {
-        return factAccessDate;
-    }
-
-    public void setFactAccessDate(Set<FactAccessDate> factAccessDate) {
-        this.factAccessDate = factAccessDate;
-    }
+    private Set<FactRegistrationGrade> factRegistrationGrade;
 
     public Long getId() {
         return id;
@@ -42,11 +34,11 @@ public class DimGrade {
         this.id = id;
     }
 
-    public Long getGrade() {
+    public Double getGrade() {
         return grade;
     }
 
-    public void setGrade(Long grade) {
+    public void setGrade(Double grade) {
         this.grade = grade;
     }
 
