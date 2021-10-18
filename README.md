@@ -66,12 +66,12 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
 # 2 - Modelo do Banco de Dados
 ## 2.1 - M.E.R (Modelo Entidade Relacionamento):
 <div align="center">
-      ![BD](/Documentos/ModelagemBD.png)
+      ![BD](/Documentos/unknown.png)
 </div>
 
 ## 2.2 - Modelagem do Data Warehouse:
 <div align="center">
-      ![DW](/Documentos/ModelagemDW.png)
+      ![DW](/Documentos/datawarehouse.png)
 </div>
 
 
