@@ -93,7 +93,12 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
       ![Sprint1](/Documentos/entrega-1.jpg)
 </div>
 
-## 3.3 - Backlog do Projeto:
+## 3.3 - Diagrama da Sprint 1:
+<div align="center">
+      ![Sprint1](/Documentos/entrega-2.jpg)
+</div>
+
+## 3.4 - Backlog do Projeto:
 
 <a name="sprint01"></a>
 ### Sprint :one: : MVP(Relatório parcial, CI parcial, DW parcial)
