@@ -93,7 +93,7 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
       ![Sprint1](/Documentos/entrega-1.jpg)
 </div>
 
-## 3.3 - Diagrama da Sprint 1:
+## 3.3 - Diagrama da Sprint 2:
 <div align="center">
       ![Sprint1](/Documentos/entrega-2.jpg)
 </div>
