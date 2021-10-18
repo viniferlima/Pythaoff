@@ -69,9 +69,14 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
       ![BD](/Documentos/ModelagemBD.png)
 </div>
 
-## 2.2 - Modelagem do Data Warehouse:
+## 2.2 - Modelagem do Data Warehouse de Registration Grade:
 <div align="center">
       ![DW](/Documentos/ModelagemDW.png)
+</div>
+
+## 2.3 - Modelagem do Data Warehouse de Acesso:
+<div align="center">
+      ![DW](/Documentos/ModelagemDWAcesso.png)
 </div>
 
 
