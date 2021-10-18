@@ -71,6 +71,8 @@ public class ExtratorController {
     @PostMapping(value = "/matriculaRegister")
     public ResponseEntity<Object> matriculaRegister(@RequestBody final String formData) {
 
+        JSONObject loginLogJson = new JSONObject(formData);
+
         // matriculaRep.save()
         // registrar data
 

@@ -109,7 +109,7 @@ class EtlApplicationTests {
 		dimPerm.setType_permission("Teste");
 		dimPermissionRepo.save(dimPerm);
 
-		assertNotNull(dimPermissionRepo.findByType_permission("Teste"));
+		assertNotNull(dimPermissionRepo.findByType("Teste"));
 	}
 
 	@Test

@@ -9,18 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pythaoff.backend.etl.Entity.DimAccess;
+import pythaoff.backend.etl.Entity.DimCourse;
+import pythaoff.backend.etl.Entity.DimCourseClass;
 import pythaoff.backend.etl.Entity.DimGrade;
 import pythaoff.backend.etl.Entity.DimPermission;
 import pythaoff.backend.etl.Entity.DimPerson;
+import pythaoff.backend.etl.Entity.DimRegistration;
 import pythaoff.backend.etl.Entity.FactAccessDate;
+import pythaoff.backend.etl.Entity.FactRegistrationGrade;
 import pythaoff.backend.etl.Repository.AccessRepository;
 import pythaoff.backend.etl.Repository.CourseClassRepository;
 import pythaoff.backend.etl.Repository.CourseRepository;
 import pythaoff.backend.etl.Repository.DimAccessRepository;
+import pythaoff.backend.etl.Repository.DimCourseClassRepository;
+import pythaoff.backend.etl.Repository.DimCourseRepository;
 import pythaoff.backend.etl.Repository.DimGradeRepository;
 import pythaoff.backend.etl.Repository.DimPermissionRepository;
 import pythaoff.backend.etl.Repository.DimPersonRepository;
+import pythaoff.backend.etl.Repository.DimRegistrationRepository;
 import pythaoff.backend.etl.Repository.FactAccessDateRepository;
+import pythaoff.backend.etl.Repository.FactRegistrationGradeRepository;
 import pythaoff.backend.etl.Repository.GradeRepository;
 import pythaoff.backend.etl.Repository.PermissionRepository;
 import pythaoff.backend.etl.Repository.PersonRepository;
@@ -71,6 +79,18 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
     @Autowired
     private DimGradeRepository dimGradeRepository;
+
+    @Autowired
+    private DimCourseRepository dimCourseRepository;
+
+    @Autowired
+    private DimCourseClassRepository dimCourseClassRepository;
+
+    @Autowired
+    DimRegistrationRepository dimRegistrationRepository;
+
+    @Autowired
+    FactRegistrationGradeRepository factRegistrationGradeRepository;
 
     @Override
     @Transactional
@@ -237,5 +257,45 @@ public class PythaoffServicesImpl implements PythaoffServices {
 
         return factAccessDate;
     }
+
+    public DimCourse NewDimCourse(String name, String description){
+        DimCourse dimCourse = new DimCourse();
+        dimCourse.setName(name);
+        dimCourse.setDescription(description);
+        dimCourseRepository.save(dimCourse);
+
+        return dimCourse;
+    };
+
+    public DimCourseClass NewDimCourseClass(String name, Date startDate, Date endDate){
+        DimCourseClass dimCourseClass = new DimCourseClass();
+        dimCourseClass.setName(name);
+        dimCourseClass.setStartDate(startDate);
+        dimCourseClass.setEndDate(endDate);
+        dimCourseClassRepository.save(dimCourseClass);
+
+        return dimCourseClass;
+    };
+
+    public DimRegistration NewDimRegistration(Long id){
+        DimRegistration dimRegistration = new DimRegistration();
+        dimRegistration.setId(id);
+        dimRegistrationRepository.save(dimRegistration);
+
+        return dimRegistration;
+    };
+
+    public FactRegistrationGrade NewFactRegistrationGrade(Long id_fact, String dimCourseClassName, Date courseClassStartDate,
+    Date courseClassEndDate, Long registrationId, String courseName, String courseDescription,
+    String personName, String personEmail, Long grade, String permissionType, DimCourseClass dimCourseClass,
+    DimRegistration dimRegistration, DimCourse dimCourse, DimPerson dimPerson, DimGrade dimGrade,
+    DimPermission dimPermission){
+        FactRegistrationGrade factRegistrationGrade = new FactRegistrationGrade(id_fact, dimCourseClassName, courseClassStartDate,
+            courseClassEndDate, registrationId, courseName, courseDescription, personName, personEmail, grade, permissionType,
+            dimCourseClass, dimRegistration, dimCourse, dimPerson, dimGrade, dimPermission);
+
+        factRegistrationGradeRepository.save(factRegistrationGrade);
+        return factRegistrationGrade;
+    };
 
 }
