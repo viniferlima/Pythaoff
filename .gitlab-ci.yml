@@ -5,9 +5,10 @@ build:
   script: 
     - gradle --build-cache assemble --scan
 
+
 test:
   stage: test
-  script: gradle check --scan
+  script: gradle test
   only:
     - Release
     - merge_requests

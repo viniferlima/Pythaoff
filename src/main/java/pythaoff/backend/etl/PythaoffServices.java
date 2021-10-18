@@ -27,7 +27,7 @@ public interface PythaoffServices {
 
     public Permission NewPermission(String type_permission);
 
-    public Grade NewGrade(Long id, Registration registration, DimGrade dimGrade);
+    public Grade NewGrade(Long id, Registration registration);
 
     public Course NewCourse(String name, String descricao);
 
@@ -39,7 +39,7 @@ public interface PythaoffServices {
 
     public DimPerson NewDimPerson(String name, String email);
 
-    public DimAccess NewDimAccess(Date date);
+    public DimAccess NewDimAccess(String date);
 
     public DimPermission NewDimPermission(String type_permission);
 

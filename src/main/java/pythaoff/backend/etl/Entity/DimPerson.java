@@ -29,6 +29,14 @@ public class DimPerson {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "dimPerson")
     private Set<FactAccessDate> factAccessDate;
 
+    public Set<FactAccessDate> getFactAccessDate() {
+        return factAccessDate;
+    }
+
+    public void setFactAccessDate(Set<FactAccessDate> factAccessDate) {
+        this.factAccessDate = factAccessDate;
+    }
+
     public Long getId_access() {
         return id_access;
     }
