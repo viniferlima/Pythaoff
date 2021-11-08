@@ -60,7 +60,7 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
 ## 1.7 - Apresentação da Evolução do Projeto :camera:
 | Sprint 1  | Sprint 2 | Sprint 3 | Sprint 4 |
 |--------- |--------- |--------- |--------- |
-|<p>:black_square_button:<a href="#sprint01">Loading...</a></p>|<p>:black_square_button:<a href="#sprint02">Loading...</a></p>|<p>:black_square_button:<a href="#sprint03">Loading...</a></p>|<p>:black_square_button:<a href="#sprint04">Loading...</a></p>|
+|<p>:white_check_mark:<a href="#sprint01">Done! </a></p>|<p>:white_check_mark:<a href="#sprint02">Done! </a></p>|<p>:warning:<a href="#sprint03">Loading...</a></p>|<p>:warning:<a href="#sprint04">Loading...</a></p>|
 
 <a name="bd"></a>
 # 2 - Modelo do Banco de Dados
