@@ -87,20 +87,7 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
       ![ETL](/Documentos/etl_finalizado.png)
 </div>
 
-<a name="estrutura"></a>
-# 4. - Estrutura do Projeto
-
-## 4.1 - Design da Aplicação:
-<div align="center">
-      ![DesignAplicacao](/Documentos/design-aplicacao.jpg)
-</div>
-
-## 4.2 - Diagrama da Sprint 1:
-<div align="center">
-      ![Sprint1](/Documentos/entrega-1.jpg)
-</div>
-
-## 3.3 - Backlog do Projeto:
+## 4 - Backlog do Projeto:
 
 <a name="sprint01"></a>
 ### Sprint :one: : MVP(Relatório parcial, CI parcial, DW parcial)
@@ -138,14 +125,14 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
 * Teste de desempenho.
 
 <a name="tecnologia"></a>
-## 4 - Tecnologias Utilizadas:
+## 5 - Tecnologias Utilizadas:
 <div align="center">
       ![Tecnologias](/Documentos/Tecnologias.png)
 </div>
 
 
 <a name="equipe"></a>
-# 5 - INTEGRANTES
+# 6 - INTEGRANTES
 
  * GABRIEL DE QUEIROZ CORDEIRO **| Product Owner |**
  * SABRINA RAFAELA CALADO MARIANO **| Dev Team |**
