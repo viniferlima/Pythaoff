@@ -66,24 +66,36 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
 # 2 - Modelo do Banco de Dados
 ## 2.1 - M.E.R (Modelo Entidade Relacionamento):
 <div align="center">
-      ![BD](/Documentos/datawarehouse.png)
+      ![BD](/Documentos/OLTP.png)
 </div>
 
 ## 2.2 - Modelagem do Data Warehouse:
 <div align="center">
-      ![DW](/Documentos/unknown.png)
+      ![DW](/Documentos/DW.png)
 </div>
 
+## 2.2 - Tabela Fato acesso após transformação:
+<div align="center">
+      ![DW](/Documentos/factAccess.png)
+</div>
+
+<a name="ETL"></a>
+# 3. - Processo ETL
+
+## 3.1 - Processo de ETL finalizado:
+<div align="center">
+      ![ETL](/Documentos/etl_finalizado.png)
+</div>
 
 <a name="estrutura"></a>
-# 3. - Estrutura do Projeto
+# 4. - Estrutura do Projeto
 
-## 3.1 - Design da Aplicação:
+## 4.1 - Design da Aplicação:
 <div align="center">
       ![DesignAplicacao](/Documentos/design-aplicacao.jpg)
 </div>
 
-## 3.2 - Diagrama da Sprint 1:
+## 4.2 - Diagrama da Sprint 1:
 <div align="center">
       ![Sprint1](/Documentos/entrega-1.jpg)
 </div>
