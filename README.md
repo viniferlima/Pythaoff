@@ -138,7 +138,7 @@ CI/CD, continuous integration/continuous delivery, é um método para entregar a
 <a name="tecnologia"></a>
 ## 5 - Tecnologias Utilizadas:
 <div align="center">
-      ![Tecnologias](/Documentos/Tecnologias.png)
+      ![Tecnologias](/Documentos/tecnologias_utilizadas.png)
 </div>
 
 
