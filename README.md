@@ -63,18 +63,18 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
 ## 1.7 - Apresentação da Evolução do Projeto :camera:
 | Sprint 1  | Sprint 2 | Sprint 3 | Sprint 4 |
 |--------- |--------- |--------- |--------- |
-|<p>:white_check_mark:<a href="#sprint01">Done! </a></p>|<p>:white_check_mark:<a href="#sprint02">Done! </a></p>|<p>:warning:<a href="#sprint03">Loading...</a></p>|<p>:warning:<a href="#sprint04">Loading...</a></p>|
+|<p>:white_check_mark:<a href="#sprint01">Done! </a></p>|<p>:white_check_mark:<a href="#sprint02">Done! </a></p>|<p>:white_check_mark:<a href="#sprint03">Done!</a></p>|<p>:warning:<a href="#sprint04">Loading...</a></p>|
 
 <a name="bd"></a>
 # 2 - Modelo do Banco de Dados
 ## 2.1 - M.E.R (Modelo Entidade Relacionamento):
 <div align="center">
-      ![BD](/Documentos/OLTP.png)
+      ![BD](/Documentos/new_oltp.png)
 </div>
 
 ## 2.2 - Modelagem do Data Warehouse:
 <div align="center">
-      ![DW](/Documentos/DW.png)
+      ![DW](/Documentos/new_dw.png)
 </div>
 
 ## 2.2 - Tabela Fato acesso após transformação:
@@ -83,9 +83,17 @@ Deve ser desenvolvido um pipeline de dados e analytics, a fim de manter um DW e 
 </div>
 
 <a name="ETL"></a>
-# 3. - Processo ETL
+# 3. - Estrutura do projeto
 
-## 3.1 - Processo de ETL finalizado:
+## 3.1 - CI/CD
+CI/CD, continuous integration/continuous delivery, é um método para entregar aplicações com frequência aos clientes. Para isso, é aplicada a automação nas etapas do desenvolvimento de aplicações. Os principais conceitos atribuídos a esse método são integração, entrega e implantação contínuas. Com o CI/CD, é possível solucionar os problemas que a integração de novos códigos pode causar para as equipes de operações e desenvolvimento. Diante dessa perspectiva, nesse projeto foi utilizado conceito de conteinerização do Docker, que nada mais é que uma plataforma aberta para criação, execução e publicação (deploy) de containers. Um Container é a forma de empacotar sua aplicação e suas dependências (bibliotecas) de forma padronizada. Veja na imagem abaixo o script de configuração do CI/CD, definindo os stages, jobs e outras dependencias que fazem parte da pipeline:
+
+<div align="center">
+      ![ETL](/Documentos/cicd.png)
+</div>
+
+
+## 3.2 - Processo de ETL finalizado:
 <div align="center">
       ![ETL](/Documentos/etl_finalizado.png)
 </div>
