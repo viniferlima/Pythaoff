@@ -1,12 +1,41 @@
-image: gradle:7.2.0-jdk11
+default:
+  image: docker:latest
 
-build:
+services:
+  - docker:dind
+
+stages:
+  - build
+  - test
+  - deploy
+
+build-job:
   stage: build
-  script: gradle --build-cache assemble --scan
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  script:
+    - echo "Compiling the code..."
+    - docker build -t version2.0-testselenium .
+    - echo "Compile complete."
 
-test:
+unit-test-job:
   stage: test
-  script: gradle check --scan
-  only:
-    - main
-    - merge_requests
+  image: python:lastest
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release"'
+  script:
+    - echo "Running unit tests... This will take about 60 seconds."
+    - pip install selenium
+    - pip install django
+    - cd projeto/
+    - python manage.py test clientes.tests.test_models
+    - echo "Code coverage"
+
+homog-test-job:
+  stage: test
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+  script:
+    - echo "Linting code... This will take about 10 seconds."
+    - sleep 10
+    - echo "No lint issues found."
